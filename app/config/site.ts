@@ -1,12 +1,7 @@
 export const siteConfig = {
-  name: "n4-stack",
-  url: "https://n4.nicholasoxford.com",
-  ogImage: "https://mmfldr.io/og.jpg",
-  description: "Go From Zero to Full-Stack Application in under a minute",
-  links: {
-    twitter: "https://twitter.com/ApolloToday",
-    github: "https://github.com/nicholasoxford",
-  },
+  name: "PACKAGE_NAME_REPLACE",
+  description:
+    "Go From Zero to Full-Stack Application in under a minute with Cloudflare D1, R2, and Pages + Supabase Auth",
 };
 
 export type SiteConfig = typeof siteConfig;

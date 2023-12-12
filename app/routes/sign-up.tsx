@@ -9,7 +9,7 @@ export default function SignUp() {
       className="flex text-center justify-center flex-col  min-h-screen w-full"
     >
       <div>
-        <h1 className="mb-2">Welcome to MMFLDR</h1>
+        <h1 className="mb-2">N4 Stack</h1>
       </div>
 
       <Login isSignUp={true} />
