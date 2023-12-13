@@ -6,7 +6,7 @@ interface Env {
   SUPABASE_URL: string;
   SUPABASE_ANON_KEY: string;
   NODE_ENV: string;
-  BUCKET_NAME_REPLACE: R2Bucket;
+  r2_mmflder_bucket: R2Bucket;
   DB: D1Database;
   R2_PUBLIC_URL: string;
 }
