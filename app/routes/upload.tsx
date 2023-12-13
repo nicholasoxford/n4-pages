@@ -63,7 +63,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
         dataArray1.push(x);
       }
 
-      await env.BUCKET_NAME_REPLACE.put(
+      await env.R2_BUCKET.put(
         NEW_FILENAME,
         new File(dataArray1, NEW_FILENAME, {
           type: contentType,

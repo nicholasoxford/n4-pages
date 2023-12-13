@@ -6,7 +6,7 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev --manual -c \"npm run start\"",
-    "start": "wrangler pages dev --compatibility-date=2023-10-16 ./public --r2=BUCKET_NAME_REPLACE --d1=DB ",
+    "start": "wrangler pages dev --compatibility-date=2023-10-16 ./public --r2=R2_BUCKET --d1=DB ",
     "create:migration": "wrangler d1 migrations create TODO",
     "local:migrate": "wrangler d1 migrations apply \"TODO\" --local",
     "remote:migrate": "wrangler d1 migrations apply \"TODO\"",
