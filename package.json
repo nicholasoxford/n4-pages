@@ -11,7 +11,8 @@
     "local:migrate": "wrangler d1 migrations apply \"TODO\" --local",
     "remote:migrate": "wrangler d1 migrations apply \"TODO\"",
     "typecheck": "tsc",
-    "pages:deploy": "bun run build && wrangler pages deploy ./public"
+    "deploy": "wrangler pages deploy ./public",
+    "pages:deploy": "npm run build && wrangler pages deploy ./public"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
