@@ -9,4 +9,9 @@ interface Env {
   R2_BUCKET: R2Bucket;
   DB: D1Database;
   R2_PUBLIC_URL: string;
+  ACCOUNT_IDENTIFIER: string;
+  CF_API_KEY: string;
+  ZONE_ID: string;
+  WORKER_QUEUE: Queue;
+  KV: KVNamespace;
 }

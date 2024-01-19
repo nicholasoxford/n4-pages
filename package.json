@@ -1,5 +1,5 @@
 {
-  "name": "PACKAGE_NAME_REPLACE",
+  "name": "alotofdb",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -7,9 +7,9 @@
     "build": "remix build",
     "dev": "remix dev --manual -c \"npm run start\"",
     "start": "wrangler pages dev --compatibility-date=2023-10-16 ./public --r2=R2_BUCKET --d1=DB ",
-    "create:migration": "wrangler d1 migrations create TODO",
-    "local:migrate": "wrangler d1 migrations apply \"TODO\" --local",
-    "remote:migrate": "wrangler d1 migrations apply \"TODO\"",
+    "create:migration": "wrangler d1 migrations create alot-db",
+    "local:migrate": "wrangler d1 migrations apply alot-db --local",
+    "remote:migrate": "wrangler d1 migrations apply alot-db",
     "typecheck": "tsc",
     "deploy": "wrangler pages deploy ./public",
     "pages:deploy": "npm run build && wrangler pages deploy ./public"
@@ -20,35 +20,38 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
-    "@remix-run/cloudflare": "^2.3.1",
-    "@remix-run/cloudflare-pages": "^2.3.1",
-    "@remix-run/css-bundle": "^2.3.1",
-    "@remix-run/react": "^2.3.1",
+    "@remix-run/cloudflare": "^2.5.0",
+    "@remix-run/cloudflare-pages": "^2.5.0",
+    "@remix-run/css-bundle": "^2.5.0",
+    "@remix-run/react": "^2.5.0",
     "@supabase/auth-helpers-remix": "^0.2.6",
-    "@supabase/supabase-js": "^2.39.0",
+    "@supabase/supabase-js": "^2.39.3",
+    "@tanstack/react-table": "^8.11.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "isbot": "^3.6.8",
     "lucide-react": "^0.288.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.2",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
-    "unique-names-generator": "^4.7.1"
+    "unique-names-generator": "^4.7.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231121.0",
-    "@remix-run/dev": "^2.3.1",
-    "@remix-run/eslint-config": "^2.3.1",
+    "@cloudflare/workers-types": "^4.20231218.0",
+    "@remix-run/dev": "^2.5.0",
+    "@remix-run/eslint-config": "^2.5.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "latest",
     "eslint": "^8.55.0",
     "tailwindcss": "latest",
     "typescript": "^5.3.3",
-    "wrangler": "^3.19.0"
+    "wrangler": "^3.22.4"
   },
   "engines": {
-    "node": ">=21.0.0"
+    "bun": ">=1.0.22"
   }
 }

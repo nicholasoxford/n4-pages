@@ -14,7 +14,10 @@ export default function SignUp() {
 
       <Login isSignUp={true} />
 
-      <h1 className="mt-2">Never lose a meme again!</h1>
+      <h1 className="mt-2">
+        {" "}
+        Create more databases than days in an year, or centuries!
+      </h1>
     </div>
   );
 }

@@ -1,4 +1,5 @@
-import { Form, Link, useActionData } from "@remix-run/react";
+import { Form, useActionData } from "@remix-run/react";
+import {} from "react-router";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -9,20 +10,27 @@ import {
 } from "./ui/card";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import type { action } from "~/routes/_index";
+import type { SetURLSearchParams } from "react-router-dom";
+import type { action } from "~/routes/sign-in";
 
-export default function Login({ isSignUp }: { isSignUp?: boolean }) {
+export default function Login({
+  isSignUp,
+  setSearchParams,
+}: {
+  isSignUp?: boolean;
+  setSearchParams?: SetURLSearchParams;
+}) {
   const data = useActionData<typeof action>();
   return (
     <>
       <Card className="border-2 border-dashed w-80 h-96 border-gray-500 p-4 rounded-lg shadow-md bg-white dark:bg-gray-800 max-w-lg mx-auto">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
-            {isSignUp ? "Sign Up For" : "Login To "} N4 Stack
+            {isSignUp ? "Sign Up" : "Login "}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 text-left">
-          <Form method="post">
+          <Form method="post" action={isSignUp ? "/sign-up" : "/sign-in"}>
             <div className="space-y-2">
               <Label htmlFor="email" className="">
                 Email
@@ -55,17 +63,23 @@ export default function Login({ isSignUp }: { isSignUp?: boolean }) {
         {!isSignUp && (
           <CardFooter className="mt-2 text-center text-sm">
             Don't have an account?
-            <Link className="underline ml-1 text-green-500" to="/sign-up">
+            <Button
+              className="underline ml-1 text-green-500"
+              onClick={() => setSearchParams?.({ isSignUp: "true" })}
+            >
               Sign up
-            </Link>
+            </Button>
           </CardFooter>
         )}
         {isSignUp && (
           <CardFooter className="mt-2 text-center text-sm ml-1">
             Already have an account?{" "}
-            <Link className="underline text-green-500" to="/">
+            <Button
+              className="underline text-green-500"
+              onClick={() => setSearchParams?.({ isSignUp: "false" })}
+            >
               Log in
-            </Link>
+            </Button>
           </CardFooter>
         )}
       </Card>

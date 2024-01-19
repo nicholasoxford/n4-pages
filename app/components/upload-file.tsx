@@ -9,6 +9,7 @@ import { Label } from "./ui/label";
 import { useFetcher } from "@remix-run/react";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
+
 export default function Upload({ hasUploaded }: { hasUploaded?: boolean }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
@@ -64,7 +65,7 @@ export default function Upload({ hasUploaded }: { hasUploaded?: boolean }) {
         onDragOver={handleDragOver}
         className={`
         ${hasUploaded ? "min-h-fit" : "min-h-screen"}
-         w-full flex flex-col items-center justify-center bg-zinc-100/40 dark:bg-zinc-800/40`}
+         w-full flex flex-col items-center justify-center `}
       >
         <div className="w-10/12 md-w-8/12 lg:w-6/12 max-w-2xl p-10 border-4 border-dashed border-zinc-600 dark:border-zinc-400 rounded-lg">
           <div className="flex flex-col items-center gap-6">

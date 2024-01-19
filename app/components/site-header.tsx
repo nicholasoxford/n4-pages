@@ -6,7 +6,7 @@ import { Icons } from "./ui/icons";
 import { siteConfig } from "~/config/site";
 import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/auth-helpers-remix";
 
 export function SiteHeader({
   isAuthorized,

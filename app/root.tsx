@@ -28,10 +28,11 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
-  const { env, session } = useLoaderData<typeof loader>();
+  const { session, SUPABASE_URL, SUPABASE_ANON_KEY } =
+    useLoaderData<typeof loader>();
   const { revalidate } = useRevalidator();
   const [supabase] = useState(() =>
-    createBrowserClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY)
+    createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY)
   );
   const serverAccessToken = session?.access_token;
   useEffect(() => {
@@ -99,7 +100,8 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 
   return json(
     {
-      env,
+      SUPABASE_URL: env.SUPABASE_URL,
+      SUPABASE_ANON_KEY: env.SUPABASE_ANON_KEY,
       session,
     },
     {

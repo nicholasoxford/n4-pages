@@ -1,26 +1,85 @@
 import {
   json,
-  type ActionFunctionArgs,
   type MetaFunction,
   type LoaderFunctionArgs,
 } from "@remix-run/cloudflare";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useSearchParams } from "@remix-run/react";
 import { createServerClient } from "@supabase/auth-helpers-remix";
-import type { Meme } from "database/types";
-import ImageGrid from "~/components/image-grid";
+import { useEffect, useState } from "react";
+import type { Database } from "schemas";
+import CreateDatabase from "~/components/create-database";
+import { columns } from "~/components/database-table/columns";
+import { DatabaseTable } from "~/components/database-table/database-table";
 import Login from "~/components/login";
-import Upload from "~/components/upload-file";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "N4 Stack" },
+    { title: "A Lot Of Databases" },
     {
       name: "description",
-      content: "The easiest way to store your favorite meme images",
+      content: "The easiest way to create a lot of databases",
     },
   ];
 };
 
+export default function Index() {
+  const { session, assets } = useLoaderData<typeof loader>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log({
+    session,
+    assets,
+  });
+  // parse string to boolean
+  const isSignUpParse = searchParams.get("isSignUp") === "true";
+  const [isSignUp, setSignUp] = useState(true);
+
+  useEffect(() => {
+    if (!searchParams.get("isSignUp")) return;
+
+    setSignUp(isSignUpParse);
+  }, [isSignUpParse, searchParams]);
+
+  return (
+    <div
+      style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}
+      className="flex text-center justify-center flex-col  min-h-screen w-full "
+    >
+      <div>
+        <h1 className="mb-2">Welcome to A Lot Of Databases</h1>
+      </div>
+
+      {session ? (
+        <div>
+          <div className="w-full flex justify-center align-middle items-center">
+            <CreateDatabase />
+          </div>
+
+          {!!assets && (
+            <div className="container mx-auto py-10">
+              <DatabaseTable
+                columns={columns}
+                data={assets.map((asset) => ({
+                  ...asset,
+                  created_at:
+                    new Date(asset.created_at + "Z").toLocaleTimeString() +
+                    " " +
+                    new Date(asset.created_at).toLocaleDateString(),
+                  updated_at: new Date(asset.updated_at).toLocaleDateString(),
+                }))}
+              />
+            </div>
+          )}
+        </div>
+      ) : (
+        <Login isSignUp={isSignUp} setSearchParams={setSearchParams} />
+      )}
+      <h1 className="mt-2">
+        {" "}
+        Create more databases than days in an year, or centuries!
+      </h1>
+    </div>
+  );
+}
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
   let env = context.env as Env;
   const db = env.DB;
@@ -51,9 +110,11 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
   }
 
   const { results } = await db
-    .prepare("SELECT * FROM assets WHERE user_id = ? ORDER BY created_at DESC")
+    .prepare(
+      "SELECT * FROM databases WHERE user_id = ? ORDER BY created_at DESC"
+    )
     .bind(session.user.id)
-    .all<Meme>();
+    .all<Database>();
   return json(
     {
       session,
@@ -64,81 +125,3 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
     }
   );
 };
-
-export default function Index() {
-  const { session, assets } = useLoaderData<typeof loader>();
-
-  return (
-    <div
-      style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}
-      className="flex text-center justify-center flex-col  min-h-screen w-full"
-    >
-      <div>
-        <h1 className="mb-2">Welcome to N4 Stack</h1>
-      </div>
-
-      {session ? (
-        <div>
-          <Upload hasUploaded={!!assets} />
-          {!!assets && <ImageGrid assets={assets} />}
-        </div>
-      ) : (
-        <Login />
-      )}
-      <h1 className="mt-2">Never lose a meme again!</h1>
-    </div>
-  );
-}
-export async function action({ request, context }: ActionFunctionArgs) {
-  const response = new Response();
-  let env = context.env as Env;
-  const supabase = createServerClient(
-    env.SUPABASE_URL!,
-    env.SUPABASE_ANON_KEY!,
-    { request, response }
-  );
-
-  const formData = await request.formData();
-  const email = String(formData.get("email"));
-  const password = String(formData.get("password"));
-
-  if (!email.includes("@")) {
-    return json({
-      error: "invalid email address",
-      success: false,
-    });
-  }
-
-  if (password.length < 8) {
-    return json({
-      error: "Password should be at least 8 characters",
-      success: false,
-    });
-  }
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  if (error) {
-    return json(
-      {
-        error: error.message,
-        success: false,
-      },
-      {
-        headers: response.headers,
-      }
-    );
-  }
-  // Redirect to dashboard if validation is successful
-  return json(
-    {
-      error: null,
-      success: true,
-    },
-    {
-      headers: response.headers,
-    }
-  );
-}

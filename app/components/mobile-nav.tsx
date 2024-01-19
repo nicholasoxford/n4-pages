@@ -10,7 +10,7 @@ import { Button } from "./ui/button";
 import { Icons } from "./ui/icons";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { ScrollArea } from "./ui/scroll-area";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/auth-helpers-remix";
 
 export function MobileNav({
   isAuthorized,

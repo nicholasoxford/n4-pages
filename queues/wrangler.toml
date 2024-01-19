@@ -1,0 +1,24 @@
+name = "queues"
+main = "src/worker.ts"
+compatibility_date = "2024-01-17"
+
+kv_namespaces = [
+    { binding = "KV", id = "bf2ed53beed64772b4ebfdb32edd5799" }
+]
+
+[[queues.producers]]
+ queue = "worker-consumer"
+ binding = "DB_CREATE_QUEUE"
+
+[[queues.consumers]]
+ queue = "worker-consumer"
+ # Required: this should match the name of the queue you created in step 3.
+ # If you misspell the name, you will receive an error when attempting to publish your Worker.
+ max_batch_size = 1 # optional: defaults to 10
+ max_batch_timeout = 0 # optional: defaults to 5 seconds
+
+
+[vars]
+ACCOUNT_IDENTIFIER = "6523e349bc2b3b61bc5155528f142bd7"
+CF_API_KEY = "L9m03NbNPm8JAZ2-Sd3F4QlVhvl6pWzA-5IhHfaK"
+ZONE_ID = "d128952c96a3e5558f8a80b17080ff1e"

@@ -1,8 +1,18 @@
+kv_namespaces = [
+    { binding = "KV", id = "bf2ed53beed64772b4ebfdb32edd5799" }
+]
+
 # If you are only using Pages + D1, you only need the below in your wrangler.toml to interact with D1 locally.
 [[d1_databases]]
 binding = "DB" # Should match preview_database_id
-database_name = "DATABASE_NAME_REPLACE"
-database_id = "DATABASE_ID_REPLACE" # wrangler d1 info YOUR_DATABASE_NAME
+database_name = "alot-db"
+database_id = "231d59eb-7986-4198-bb8e-3adcacc84afe" # wrangler d1 info YOUR_DATABASE_NAME
 preview_database_id = "DB" # Required for Pages local development
 migrations_dir = "database/migrations"
+
+
+
+[[queues.producers]]
+ queue = "worker-consumer"
+ binding = "DB_CREATE_QUEUE"
 
